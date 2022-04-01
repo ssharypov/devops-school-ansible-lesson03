@@ -1,0 +1,8 @@
+---
+# vars file for vsftpd_default
+anon_root: /var/ftp/pub
+anon_upload_enable: 'YES'
+anon_mkdir_write_enable: 'YES'
+async_abor_enable: 'YES'
+no_anon_password: 'YES'
+anon_other_write_enable: 'YES'

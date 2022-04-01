@@ -1,0 +1,6 @@
+[all]
+node[1:2].example.com 
+
+[all:vars]
+ansible_user=ansible
+ansible_password=password

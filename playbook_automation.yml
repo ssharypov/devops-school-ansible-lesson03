@@ -1,0 +1,9 @@
+---
+- name: Lesson 01, Playbook 01
+  hosts: all
+  become: yes
+  gather_facts: yes
+
+  roles:
+#   - apache_default
+   - vsftpd_default

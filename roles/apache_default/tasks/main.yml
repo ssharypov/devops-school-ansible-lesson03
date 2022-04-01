@@ -1,0 +1,48 @@
+---
+# tasks file for apache_default
+ - name: Install Apache Web Server
+   yum:
+    name: httpd
+    state: latest
+
+ - name: Start Apache Web Server
+   service:
+    name: httpd
+    enabled: yes
+    state: stopped
+
+ - name: Gather service facts
+   service_facts:
+
+ - block: # Start Apache
+    - name: Start Apache if not running
+      service:
+       name: httpd
+       state: started
+   when: ansible_facts.services['httpd.service'].state != 'running'
+
+ - name: Generate web page
+   template:
+    src: index.j2
+    dest: "{{dest_folder}}/index.html"
+
+ - name: Copy header image
+   copy:
+    src: "{{item }}"
+    dest: "{{dest_folder}}"
+   loop:
+    - header.png
+   notify:
+    - Restart Apache
+
+ - name: Open HTTP port 80
+   firewalld:
+    permanent:
+    service: http
+    state: enabled
+
+ - name: Open HTTPS port 443
+   firewalld:
+    permanent:
+    service: https
+    state: enabled

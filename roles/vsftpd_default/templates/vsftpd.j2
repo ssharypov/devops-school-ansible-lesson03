@@ -1,0 +1,23 @@
+anonymous_enable=YES
+local_enable=YES
+write_enable=YES
+local_umask=022
+dirmessage_enable=YES
+xferlog_enable=YES
+connect_from_port_20=YES
+xferlog_std_format=YES
+listen=YES
+listen_ipv6=NO
+xferlog_enable=YES
+xferlog_file=/var/log/vsftpd.log
+pam_service_name=vsftpd
+userlist_enable=YES
+tcp_wrappers=YES
+download_enable=YES
+
+anon_root={{anon_root | string}}
+anon_upload_enable={{anon_upload_enable | string}}
+anon_mkdir_write_enable={{anon_mkdir_write_enable | string}}
+async_abor_enable={{async_abor_enable | string}}
+no_anon_password={{no_anon_password | string}}
+anon_other_write_enable={{anon_other_write_enable}}

@@ -1,0 +1,60 @@
+---
+# tasks file for vsftpd_default
+ - name: Install VSFTPD
+   yum:
+    name: vsftpd
+    state: latest
+
+ - name: Open FTP ports
+   firewalld:
+    permanent:
+    service: ftp
+    state: enabled
+
+ - name: Backup original config file
+   command: mv "{{config_dir}}/{{config_fil}}.conf" "{{config_dir}}/{{config_fil}}.conf.original"
+   ignore_errors: yes
+
+ - name: Generate config file
+   template:
+    src: "{{config_fil}}.j2"
+    dest: "{{config_dir}}/{{config_fil}}.conf"
+
+ - name: Chown ftp dir from root ro ftp
+   file:
+    state: directory
+    path: "{{anon_root}}/upload"
+    owner: ftp
+    mode: u=rwx,g=rwx,o=rwx
+
+ - name: Change ftp dir permissions
+   file:
+    state: directory
+    path: "{{anon_root}}"
+    owner: ftp
+    mode: u=rwx,g=rwx,o=rwx
+
+ - name: Create upload dir for admin user
+   file:
+    state: directory
+    path: "{{anon_root}}/upload"
+    owner: ftp
+    mode: u=rwx,g=rwx,o=rwx
+
+ - name: Change ftp dir permissions
+   file:
+    state: directory
+    path: "{{anon_root}}"
+    owner: ftp
+    mode: u=rwx,g=rwx,o=rwx
+
+ - name: Correct SELinux
+   command: setsebool -P ftpd_anon_write on
+   notify: Restart VSFTPD
+   ignore_errors: yes
+
+ - name: Start VSFTPD
+   service:
+    name: vsftpd
+    enabled: yes
+    state: started

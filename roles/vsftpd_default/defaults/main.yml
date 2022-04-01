@@ -1,0 +1,4 @@
+---
+# defaults file for vsftpd_default
+config_dir: "/etc/vsftpd"
+config_fil: "vsftpd"

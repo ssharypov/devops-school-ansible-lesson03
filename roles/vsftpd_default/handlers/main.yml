@@ -1,0 +1,6 @@
+---
+# handlers file for vsftpd_default
+- name: Restart VSFTPD
+  service:
+   name: vsftpd
+   state: restarted
