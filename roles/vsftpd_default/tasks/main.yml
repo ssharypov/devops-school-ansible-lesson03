@@ -25,13 +25,16 @@
     state: directory
     path: "{{anon_root}}/upload"
     owner: ftp
+    group: ftp
     mode: u=rwx,g=rwx,o=rwx
 
  - name: Change ftp dir permissions
    file:
+    recurse: yes
     state: directory
     path: "{{anon_root}}"
     owner: ftp
+    group: ftp
     mode: u=rwx,g=rwx,o=rwx
 
  - name: Create upload dir for admin user
@@ -39,6 +42,7 @@
     state: directory
     path: "{{anon_root}}/upload"
     owner: ftp
+    group: ftp
     mode: u=rwx,g=rwx,o=rwx
 
  - name: Change ftp dir permissions
@@ -46,6 +50,7 @@
     state: directory
     path: "{{anon_root}}"
     owner: ftp
+    group: ftp
     mode: u=rwx,g=rwx,o=rwx
 
  - name: Correct SELinux
